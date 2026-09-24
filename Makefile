@@ -10,7 +10,7 @@ ui:
 	uv run langgraph dev --port 8123
 
 scenario:
-	uv run streamlit run ui/scenario_viewer.py
+	uv run streamlit run ui/scenario_viewer.py --server.headless true
 
 eval:
 	PYTHONPATH=. uv run python -m evals.inspect.runner
