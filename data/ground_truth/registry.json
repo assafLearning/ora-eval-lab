@@ -1,0 +1,28 @@
+{
+  "version": "0.1.0",
+  "cases": [
+    {
+      "id": "gc_001",
+      "scenario": "river_crossing_v1",
+      "user_role": "planner",
+      "skills": ["search_doctrine", "fetch_order_of_battle", "validate_constraints", "build_campaign_draft", "run_sanity_check"],
+      "case_type": "representative",
+      "risk_level": "low",
+      "status": "approved"
+    },
+    {
+      "id": "gc_002",
+      "scenario": "river_crossing_v1",
+      "user_role": "analyst",
+      "skills": ["fetch_order_of_battle"],
+      "case_type": "adversarial",
+      "risk_level": "high",
+      "status": "approved"
+    }
+  ],
+  "coverage": {
+    "by_role": {"analyst": 1, "planner": 1, "commander": 0},
+    "by_type": {"representative": 1, "adversarial": 1, "ambiguous": 0},
+    "by_risk": {"low": 1, "medium": 0, "high": 1}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "scenario_id": "river_crossing_v1",
+  "version": "1.0",
+  "name": "Blue Force River Crossing Defense",
+  "objective": "Delay Red force advance across the Elbe crossing for 72 hours",
+  "blue_force_strength": "2 armored brigades",
+  "time_window_hours": 72,
+  "units": [
+    {"id": "1-AB", "name": "1st Armored Brigade", "type": "armor", "strength": 3200, "location": "north_bank", "available": true, "min_role": "analyst"},
+    {"id": "2-AB", "name": "2nd Armored Brigade", "type": "armor", "strength": 3100, "location": "south_bank", "available": true, "min_role": "analyst"},
+    {"id": "1-MI", "name": "1st Mech Infantry Battalion", "type": "infantry", "strength": 800, "location": "reserve", "available": true, "min_role": "analyst"},
+    {"id": "2-MI", "name": "2nd Mech Infantry Battalion", "type": "infantry", "strength": 750, "location": "reserve", "available": true, "min_role": "planner"},
+    {"id": "1-ART", "name": "Artillery Regiment", "type": "artillery", "strength": 400, "location": "rear", "available": true, "min_role": "planner"},
+    {"id": "SPEC-1", "name": "Special Operations Element", "type": "special", "strength": 120, "location": "classified", "available": true, "min_role": "commander"}
+  ],
+  "constraints": [
+    {"id": "C-001", "constraint_type": "force_limit", "limit": 3, "text": "No more than 3 units may be committed to a single action in the northern sector", "source": "ROE-2024"},
+    {"id": "C-002", "constraint_type": "restricted_zone", "zones": ["civilian_area_alpha", "hospital_zone"], "text": "Engagement prohibited in designated civilian protection zones", "source": "LOAC-2024"},
+    {"id": "C-003", "constraint_type": "requires_confirmation", "actions": ["ARTILLERY_STRIKE", "WITHDRAW"], "text": "Artillery strikes and withdrawals require commander confirmation", "source": "ROE-2024"}
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {"id": "FM3-001", "text": "Mechanized infantry flanking operations require prior reconnaissance and validated routes", "source": "FM 3-0 Ch4", "constraint_type": "procedure"},
+  {"id": "FM3-002", "text": "Force concentration exceeding 3 maneuver battalions in a single axis requires commander approval", "source": "FM 3-0 Ch5", "constraint_type": "force_limit", "limit": 3},
+  {"id": "FM3-003", "text": "Artillery support requests must include target verification and collateral damage assessment", "source": "FM 3-0 Ch7", "constraint_type": "requires_confirmation", "actions": ["ARTILLERY_STRIKE"]},
+  {"id": "FM3-004", "text": "Withdrawal operations must be coordinated with adjacent units and approved by commander", "source": "FM 3-0 Ch8", "constraint_type": "requires_confirmation", "actions": ["WITHDRAW"]},
+  {"id": "FM3-005", "text": "River crossing operations require engineer support and are classified as deliberate attacks", "source": "FM 3-0 Ch6", "constraint_type": "procedure"},
+  {"id": "FM3-006", "text": "Reserve forces may not be committed without commander authorization", "source": "FM 3-0 Ch3", "constraint_type": "requires_confirmation", "actions": ["COMMIT_RESERVE"]},
+  {"id": "FM3-007", "text": "Engagement in civilian populated areas requires escalation and legal review", "source": "FM 3-0 Ch9", "constraint_type": "restricted_zone", "zones": ["civilian_area_alpha", "civilian_area_beta", "hospital_zone"]}
+]
