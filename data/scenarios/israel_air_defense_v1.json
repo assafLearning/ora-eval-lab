@@ -1,0 +1,355 @@
+{
+  "scenario_id": "israel_air_defense_v1",
+  "version": "1.0",
+  "name": "Israel Multi-Front Air Defense",
+  "type": "air_defense",
+  "defender": {
+    "name": "Israel",
+    "lat": 31.5,
+    "lon": 35.0,
+    "key_assets": [
+      {"id": "tel_aviv",    "name": "Tel Aviv",      "lat": 32.07, "lon": 34.78, "type": "city",     "priority": "critical"},
+      {"id": "jerusalem",   "name": "Jerusalem",     "lat": 31.77, "lon": 35.23, "type": "capital",  "priority": "critical"},
+      {"id": "haifa",       "name": "Haifa",         "lat": 32.82, "lon": 34.99, "type": "city",     "priority": "high"},
+      {"id": "beer_sheva",  "name": "Beer Sheva",    "lat": 31.25, "lon": 34.79, "type": "city",     "priority": "medium"},
+      {"id": "dimona",      "name": "Dimona",        "lat": 31.07, "lon": 35.15, "type": "facility", "priority": "critical"},
+      {"id": "eilat",       "name": "Eilat",         "lat": 29.56, "lon": 34.95, "type": "city",     "priority": "low"},
+      {"id": "ben_gurion",  "name": "Ben Gurion Airport", "lat": 31.99, "lon": 34.89, "type": "airport", "priority": "critical"}
+    ]
+  },
+  "attackers": [
+    {
+      "id": "iran",
+      "name": "Iran",
+      "lat": 32.0,
+      "lon": 53.0,
+      "threat_level": "critical",
+      "weapons": [
+        {
+          "id": "shahab3",
+          "name": "Shahab-3 / Ghadr",
+          "type": "ballistic_missile",
+          "range_km": 2000,
+          "speed_mach": 7,
+          "altitude_max_km": 1000,
+          "rcs_sqm": 0.5,
+          "payload_kg": 750,
+          "cep_m": 800,
+          "count": 200,
+          "threat_level": "critical",
+          "notes": "Medium-range ballistic missile, primary Iranian strategic weapon"
+        },
+        {
+          "id": "emad",
+          "name": "Emad MRBM",
+          "type": "ballistic_missile",
+          "range_km": 1700,
+          "speed_mach": 6,
+          "altitude_max_km": 800,
+          "rcs_sqm": 0.4,
+          "payload_kg": 750,
+          "cep_m": 500,
+          "count": 50,
+          "threat_level": "critical",
+          "notes": "Precision-guided variant of Shahab-3"
+        },
+        {
+          "id": "fattah",
+          "name": "Fattah Hypersonic",
+          "type": "hypersonic",
+          "range_km": 1400,
+          "speed_mach": 15,
+          "altitude_max_km": 80,
+          "rcs_sqm": 0.1,
+          "payload_kg": 450,
+          "cep_m": 30,
+          "count": 20,
+          "threat_level": "critical",
+          "notes": "Hypersonic glide vehicle, highly manoeuvrable, extremely difficult to intercept"
+        },
+        {
+          "id": "shahed136",
+          "name": "Shahed-136 Loitering Munition",
+          "type": "drone",
+          "range_km": 2000,
+          "speed_mach": 0.2,
+          "altitude_max_km": 3,
+          "rcs_sqm": 0.01,
+          "payload_kg": 40,
+          "cep_m": 20,
+          "count": 2000,
+          "threat_level": "high",
+          "notes": "Cheap, mass-producible, saturates radar and interceptor capacity"
+        },
+        {
+          "id": "ya_ali",
+          "name": "Ya Ali Cruise Missile",
+          "type": "cruise_missile",
+          "range_km": 700,
+          "speed_mach": 0.85,
+          "altitude_max_km": 0.1,
+          "rcs_sqm": 0.05,
+          "payload_kg": 450,
+          "cep_m": 10,
+          "count": 100,
+          "threat_level": "high",
+          "notes": "Low-altitude terrain-hugging cruise missile"
+        }
+      ]
+    },
+    {
+      "id": "hezbollah",
+      "name": "Hezbollah (Lebanon)",
+      "lat": 33.8,
+      "lon": 35.5,
+      "threat_level": "high",
+      "weapons": [
+        {
+          "id": "fateh110",
+          "name": "Fateh-110 / M-600",
+          "type": "ballistic_missile",
+          "range_km": 300,
+          "speed_mach": 3.5,
+          "altitude_max_km": 50,
+          "rcs_sqm": 0.3,
+          "payload_kg": 450,
+          "cep_m": 200,
+          "count": 1000,
+          "threat_level": "high",
+          "notes": "Precision short-range ballistic missile, large stockpile"
+        },
+        {
+          "id": "katyusha",
+          "name": "Katyusha / Grad Rockets",
+          "type": "rocket",
+          "range_km": 40,
+          "speed_mach": 1.5,
+          "altitude_max_km": 5,
+          "rcs_sqm": 0.02,
+          "payload_kg": 20,
+          "cep_m": 1000,
+          "count": 15000,
+          "threat_level": "medium",
+          "notes": "Mass-volume unguided rocket barrage"
+        },
+        {
+          "id": "hezbollah_drone",
+          "name": "Mersad / Ababil Drones",
+          "type": "drone",
+          "range_km": 200,
+          "speed_mach": 0.3,
+          "altitude_max_km": 4,
+          "rcs_sqm": 0.02,
+          "payload_kg": 30,
+          "cep_m": 15,
+          "count": 2000,
+          "threat_level": "medium",
+          "notes": "Operational drones for ISR and attack missions"
+        }
+      ]
+    },
+    {
+      "id": "houthis",
+      "name": "Houthis (Yemen)",
+      "lat": 15.5,
+      "lon": 48.0,
+      "threat_level": "medium",
+      "weapons": [
+        {
+          "id": "burkan",
+          "name": "Burkan-2H Ballistic",
+          "type": "ballistic_missile",
+          "range_km": 1500,
+          "speed_mach": 7,
+          "altitude_max_km": 600,
+          "rcs_sqm": 0.4,
+          "payload_kg": 500,
+          "cep_m": 500,
+          "count": 30,
+          "threat_level": "high",
+          "notes": "Iranian-supplied MRBM, previously struck Saudi Arabia"
+        },
+        {
+          "id": "quds1",
+          "name": "Quds-1 Cruise Missile",
+          "type": "cruise_missile",
+          "range_km": 900,
+          "speed_mach": 0.7,
+          "altitude_max_km": 0.1,
+          "rcs_sqm": 0.05,
+          "payload_kg": 150,
+          "cep_m": 50,
+          "count": 100,
+          "threat_level": "medium",
+          "notes": "Low-altitude cruise missile, evades radar"
+        },
+        {
+          "id": "houthi_shahed",
+          "name": "Shahed-136 Variant",
+          "type": "drone",
+          "range_km": 2500,
+          "speed_mach": 0.2,
+          "altitude_max_km": 3,
+          "rcs_sqm": 0.01,
+          "payload_kg": 40,
+          "cep_m": 20,
+          "count": 500,
+          "threat_level": "medium",
+          "notes": "Extended-range variant used in Red Sea / Israel attacks"
+        }
+      ]
+    },
+    {
+      "id": "hamas",
+      "name": "Hamas (Gaza)",
+      "lat": 31.4,
+      "lon": 34.3,
+      "threat_level": "medium",
+      "weapons": [
+        {
+          "id": "qassam",
+          "name": "Qassam / J-80 Rockets",
+          "type": "rocket",
+          "range_km": 40,
+          "speed_mach": 1.2,
+          "altitude_max_km": 3,
+          "rcs_sqm": 0.02,
+          "payload_kg": 10,
+          "cep_m": 2000,
+          "count": 30000,
+          "threat_level": "medium",
+          "notes": "High volume, short range, saturates Iron Dome capacity"
+        },
+        {
+          "id": "grad_extended",
+          "name": "Extended Grad / R-160",
+          "type": "rocket",
+          "range_km": 80,
+          "speed_mach": 1.5,
+          "altitude_max_km": 8,
+          "rcs_sqm": 0.05,
+          "payload_kg": 40,
+          "cep_m": 800,
+          "count": 3000,
+          "threat_level": "medium",
+          "notes": "Smuggled extended-range Grad rockets"
+        }
+      ]
+    }
+  ],
+  "defense_systems": [
+    {
+      "id": "arrow3",
+      "name": "Arrow 3 (Hetz-3)",
+      "layer": "exo-atmospheric",
+      "intercepts": ["ballistic_missile", "hypersonic"],
+      "range_km": 2400,
+      "altitude_min_km": 100,
+      "altitude_max_km": 1000,
+      "intercept_probability": 0.85,
+      "reload_time_s": 120,
+      "batteries_available": 2,
+      "cost_per_intercept_musd": 3.5,
+      "notes": "Exo-atmospheric intercept. Best against long-range ballistic and hypersonic threats."
+    },
+    {
+      "id": "arrow2",
+      "name": "Arrow 2 (Hetz-2)",
+      "layer": "endo-atmospheric",
+      "intercepts": ["ballistic_missile"],
+      "range_km": 90,
+      "altitude_min_km": 10,
+      "altitude_max_km": 50,
+      "intercept_probability": 0.80,
+      "reload_time_s": 60,
+      "batteries_available": 3,
+      "cost_per_intercept_musd": 2.0,
+      "notes": "Endo-atmospheric terminal defense against ballistic missiles."
+    },
+    {
+      "id": "davids_sling",
+      "name": "David's Sling (Kela David)",
+      "layer": "upper-tier",
+      "intercepts": ["ballistic_missile", "cruise_missile"],
+      "range_km": 300,
+      "altitude_min_km": 15,
+      "altitude_max_km": 50,
+      "intercept_probability": 0.85,
+      "reload_time_s": 40,
+      "batteries_available": 2,
+      "cost_per_intercept_musd": 1.0,
+      "notes": "Mid-layer defense bridging Arrow and Iron Dome. Effective against Fateh-110 class."
+    },
+    {
+      "id": "iron_dome",
+      "name": "Iron Dome (Kippat Barzel)",
+      "layer": "short-range",
+      "intercepts": ["rocket", "drone", "cruise_missile"],
+      "range_km": 70,
+      "altitude_min_km": 0.01,
+      "altitude_max_km": 10,
+      "intercept_probability": 0.90,
+      "reload_time_s": 15,
+      "batteries_available": 10,
+      "cost_per_intercept_musd": 0.05,
+      "notes": "High-volume short-range defense. Primary counter to rockets and drones."
+    },
+    {
+      "id": "patriot_pac3",
+      "name": "Patriot PAC-3",
+      "layer": "medium-high",
+      "intercepts": ["ballistic_missile", "cruise_missile"],
+      "range_km": 160,
+      "altitude_min_km": 0.1,
+      "altitude_max_km": 40,
+      "intercept_probability": 0.82,
+      "reload_time_s": 30,
+      "batteries_available": 3,
+      "cost_per_intercept_musd": 4.0,
+      "notes": "NATO-interoperable system. Backup for Arrow 2 against medium ballistic threats."
+    }
+  ],
+  "no_deploy_zones": [
+    {
+      "id": "ndz_jerusalem_old",
+      "name": "Jerusalem Old City",
+      "lat": 31.776, "lon": 35.235,
+      "radius_km": 2.0,
+      "type": "religious_heritage",
+      "reason": "UNESCO World Heritage Site. Deployment prohibited by international agreement."
+    },
+    {
+      "id": "ndz_ben_gurion",
+      "name": "Ben Gurion Airport Airspace",
+      "lat": 31.99, "lon": 34.89,
+      "radius_km": 8.0,
+      "type": "aviation",
+      "reason": "Active international airport. Radar and launcher interference with flight paths."
+    },
+    {
+      "id": "ndz_tel_aviv_center",
+      "name": "Tel Aviv City Center",
+      "lat": 32.07, "lon": 34.78,
+      "radius_km": 3.0,
+      "type": "population_density",
+      "reason": "Dense civilian population. Debris and intercept fallout risk."
+    },
+    {
+      "id": "ndz_masada",
+      "name": "Masada National Park",
+      "lat": 31.315, "lon": 35.354,
+      "radius_km": 1.5,
+      "type": "heritage_site",
+      "reason": "UNESCO World Heritage Site."
+    },
+    {
+      "id": "ndz_dead_sea_north",
+      "name": "Dead Sea Northern Shore",
+      "lat": 31.76, "lon": 35.56,
+      "radius_km": 3.0,
+      "type": "border_zone",
+      "reason": "Jordan border proximity. Deployment requires bilateral coordination."
+    }
+  ],
+  "deployments": []
+}
