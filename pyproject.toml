@@ -11,9 +11,11 @@ dependencies = [
     "langchain-anthropic>=1.7.4",
     "langgraph-cli[inmem]>=0.4.32",
     "langsmith>=0.14.0",
+    "plotly>=7.1.0",
     "pydantic>=2.13.5",
     "python-dotenv>=1.2.3",
     "pyyaml>=6.0.3",
+    "streamlit>=1.64.0",
 ]
 
 [dependency-groups]
