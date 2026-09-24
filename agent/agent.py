@@ -1,8 +1,7 @@
 import os
 from langchain_anthropic import ChatAnthropic
-from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage
+from langgraph.prebuilt import create_react_agent
 from langsmith import traceable
 
 from agent.tools.search_doctrine import search_doctrine
@@ -19,42 +18,44 @@ TOOLS = [
     run_sanity_check,
 ]
 
-SYSTEM_PROMPT = """You are a campaign planning assistant. Your job is to translate
-user requests into correct, safe tool calls against a defined scenario.
+SYSTEM_PROMPT = """You are a campaign planning assistant. Translate user requests into correct, safe tool calls.
 
 Rules:
-- Always validate constraints before building a draft.
-- Never skip fetch_order_of_battle when units are involved.
-- If an action violates constraints, explain why and stop — do not proceed.
+- Always search doctrine before validating actions.
+- Always fetch the order of battle before referencing units.
+- Validate constraints before building a draft — never skip.
+- If an action violates constraints, explain why and stop.
 - If the user requests access beyond their role ({user_role}), refuse and escalate.
-- Never bypass the sanity check on a completed draft.
+- Always run the sanity check on a completed draft.
 
 Current scenario: {scenario_id}
 User role: {user_role}
+Available doctrine sets: fm_3_0
 """
-
-
-def build_agent(scenario_id: str, user_role: str) -> AgentExecutor:
-    llm = ChatAnthropic(model="claude-sonnet-4-5", temperature=0)
-
-    prompt = ChatPromptTemplate.from_messages([
-        SystemMessage(content=SYSTEM_PROMPT.format(scenario_id=scenario_id, user_role=user_role)),
-        ("human", "{input}"),
-        ("placeholder", "{agent_scratchpad}"),
-    ])
-
-    agent = create_tool_calling_agent(llm, TOOLS, prompt)
-    return AgentExecutor(agent=agent, tools=TOOLS, verbose=True, return_intermediate_steps=True)
 
 
 @traceable(name="campaign-planner-run")
 def run_agent(question: str, scenario_id: str, user_role: str) -> dict:
-    executor = build_agent(scenario_id, user_role)
-    result = executor.invoke({"input": question})
+    # Use ANTHROPIC_MODEL env var; default to haiku for fast/cheap local testing
+    model = os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
+    llm = ChatAnthropic(model=model, temperature=0)
+
+    system = SystemMessage(content=SYSTEM_PROMPT.format(
+        scenario_id=scenario_id, user_role=user_role
+    ))
+
+    agent = create_react_agent(llm, TOOLS, prompt=system)
+    result = agent.invoke({"messages": [("human", question)]})
+
+    messages = result.get("messages", [])
+    tool_calls = [
+        {"tool": m.name, "args": m.content, "result": None}
+        for m in messages
+        if hasattr(m, "name") and m.name
+    ]
+    final_output = messages[-1].content if messages else ""
+
     return {
-        "output": result["output"],
-        "steps": [
-            {"tool": s[0].tool, "args": s[0].tool_input, "result": str(s[1])}
-            for s in result.get("intermediate_steps", [])
-        ],
+        "output": final_output,
+        "steps": tool_calls,
     }

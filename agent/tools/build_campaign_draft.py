@@ -13,8 +13,9 @@ def build_campaign_draft(scenario_id: str, actions: list[dict]) -> dict:
         raise ValueError(f"UnknownScenario: {scenario_id}")
 
     for action in actions:
-        if not action.get("valid", False):
-            violations = action.get("violations", [])
+        violations = action.get("violations", [])
+        is_valid = action.get("valid", len(violations) == 0)
+        if not is_valid or violations:
             raise ValueError(f"UnvalidatedAction: cannot build draft with invalid action. Violations: {violations}")
 
     scenario = json.loads(path.read_text())

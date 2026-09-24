@@ -11,7 +11,8 @@ def search_doctrine(query: str, doctrine_set: str) -> list[dict]:
     """Search public doctrine for rules relevant to a proposed action."""
     path = _DOCTRINE_PATH / f"{doctrine_set}.json"
     if not path.exists():
-        raise ValueError(f"UnknownDoctrineSet: {doctrine_set}")
+        available = [p.stem for p in _DOCTRINE_PATH.glob("*.json")]
+        return [{"warning": f"Unknown doctrine set '{doctrine_set}'. Available: {available}"}]
 
     rules: list[dict] = json.loads(path.read_text())
     query_lower = query.lower()
