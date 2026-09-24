@@ -19,7 +19,8 @@ def run_all():
         task_name = result.eval.task
         scores = result.results.scores if result.results else []
         for s in scores:
-            print(f"{task_name} | {s.name}: {s.value:.2f} ({s.reducer})")
+            for metric_name, metric in s.metrics.items():
+                print(f"{task_name} | {s.name} | {metric_name}: {metric.value:.2f}")
 
 
 if __name__ == "__main__":
